@@ -3,9 +3,9 @@ package org.sh.huiyi.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.sh.huiyi.boot.utils.Result;
-import org.sh.huiyi.dao.MeetingDao;
-import org.sh.huiyi.model.Meeting;
-import org.sh.huiyi.service.MeetingService;
+import org.sh.huiyi.dao.MeetingReservationDao;
+import org.sh.huiyi.model.MeetingReservation;
+import org.sh.huiyi.service.MeetingReservationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -15,32 +15,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/meeting")
-public class MeetingController {
+@RequestMapping(value = "/meetingReservation")
+public class MeetingReservationController {
 
     @Autowired
-    private MeetingDao meetingDao;
+    private MeetingReservationDao meetingReservationDao;
     @Autowired
     protected HttpServletRequest request;
     @Autowired
-    private MeetingService meetingService;
+    private MeetingReservationService meetingReservationService;
 
     @GetMapping("/getById")
     @ResponseBody
-    public Meeting getMeeting(@RequestParam String id){
-        Meeting meeting = meetingDao.findById(id);
-        return meeting;
+    public MeetingReservation getMeeting(@RequestParam String id){
+        MeetingReservation meetingReservation =
+                meetingReservationDao.findById(id);
+        return meetingReservation;
     }
 
     @PostMapping("/add")
-    public void addMeeting(@RequestBody Meeting mt){
-        if(StringUtils.isNotBlank(mt.getId())){
-            Meeting meeting = meetingDao.findById(mt.getId());
-            BeanUtils.copyProperties(mt, meeting);
-            meetingDao.save(meeting);
+    public void addMeeting(@RequestBody MeetingReservation mReservation){
+        if(StringUtils.isNotBlank(mReservation.getId())){
+            MeetingReservation meetingReservation = meetingReservationDao.findById(mReservation.getId());
+            BeanUtils.copyProperties(mReservation, meetingReservation);
+            meetingReservationDao.save(meetingReservation);
         }
         else {
-            meetingDao.save(mt);
+            meetingReservationDao.save(mReservation);
         }
     }
 
@@ -49,7 +50,7 @@ public class MeetingController {
                                        @RequestParam(defaultValue = "50") Integer pageSize,
                                        @RequestParam(required = false) String name){
         Pageable pageable = PageRequest.of(pageNumber <=0 ? 0 : pageNumber-1, pageSize < 1 ? 50 : pageSize);
-        return new ResponseEntity(meetingService.getMeetingList(name, pageable), HttpStatus.OK);
+        return new ResponseEntity(meetingReservationService.getMeetingReservationList(name, pageable), HttpStatus.OK);
     }
 
 }

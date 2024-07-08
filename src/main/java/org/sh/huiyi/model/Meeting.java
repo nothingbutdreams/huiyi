@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "MEETING_RESERVATION")
+@Table(name = "MEETING")
 @Data
 @Accessors(chain=true)
-public class MeetingReservation implements Serializable {
+public class Meeting implements Serializable {
 
     @Id
     @GeneratedValue(generator = "SYSTEM-UUID")
@@ -34,17 +34,5 @@ public class MeetingReservation implements Serializable {
     @Column(name = "ENDTIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
-
-    @Column(name = "PERS_NAME", length = 50)
-    private String persName;
-
-    @Column(name = "MOBILE", length = 50)
-    private String mobile;
-
-    @Column(name = "REMARK", length = 50)
-    private String remark;
-
-    @Column(name = "STATE", length = 50)
-    private String state;
 
 }
