@@ -24,16 +24,9 @@ public class MeetingReservation implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date createTime = new Date();
 
-    @Column(name = "MEETING_NAME", length = 50, nullable = false)
-    private String meetingName;
-
-    @Column(name = "STARTTIME")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startTime;
-
-    @Column(name = "ENDTIME")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endTime;
+    @ManyToOne
+    @JoinColumn(name = "MEETING_ID")
+    private Meeting meeting;
 
     @Column(name = "PERS_NAME", length = 50)
     private String persName;

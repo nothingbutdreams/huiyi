@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:data-th="http://www.thymeleaf.org/extras/dataattribute">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预约数据报表</title>
+    <link rel="stylesheet" href="../css/meetingReport.css">
+</head>
+<body>
+<div id="app" class="container" th:with="reservations=${meetingReservations}">
+    <h2>预约数据报表</h2>
+    <div class="button-group">
+        <button @click="refreshData">刷新</button>
+        <button @click="addReservation">新增</button>
+    </div>
+    <table class="info-table" v-if="reservations.length">
+        <thead>
+        <tr>
+            <th>会议名称</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>预约人</th>
+            <th>手机号</th>
+            <th>备注</th>
+            <th>是否签到</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="reservation in reservations" :key="reservation.id">
+            <td hidden="hidden">{{ reservation.id }}</td>
+            <td>{{ reservation.meetingName }}</td>
+            <td>{{ formatDateTime(reservation.startTime) }}</td>
+            <td>{{ formatDateTime(reservation.endTime) }}</td>
+            <td>{{ reservation.persName }}</td>
+            <td>{{ reservation.mobile }}</td>
+            <td>{{ reservation.remark }}</td>
+            <td>{{ reservation.state }}</td>
+            <td>
+                <button @click="deleteReservation(reservation.id)">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="no-data" v-else>
+        <p>暂无数据</p>
+    </div>
+</div>
+<script src="../js/vue.js"></script>
+<script src="../js/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            reservations: []
+        },
+        mounted() {
+            this.initData();
+        },
+        methods: {
+            initData(pageNumber = 1, pageSize = 50) {
+                axios.get('/meetingReservation/list', {
+                    params: {
+                        pageNumber: pageNumber,
+                        pageSize: pageSize
+                    }
+                })
+                    .then(response => {
+                        this.reservations = response.data.data.rows; // 注意这里的数据结构
+                        console.log('成功获取会议预约数据:', this.reservations);
+                    })
+                    .catch(error => {
+                        console.error('Error loading meeting reservations:', error);
+                        alert('数据加载失败，请刷新页面！');
+                    });
+            },
+            refreshData() {
+                this.initData();
+            },
+            addReservation() {
+                console.log('Adding new reservation...');
+                // Implement add reservation logic here
+            },
+            deleteReservation(reservationId) {
+                axios.post('/meetingReservation/delById', null, {
+                    params: {
+                        id: reservationId
+                    }
+                })
+                    .then(response => {
+                        console.log('Reservation deleted:', response);
+                        alert("删除成功！")
+                        this.initData();
+                    })
+                    .catch(error => {
+                        console.error('Error deleting reservation:', error);
+                        alert('删除失败，请重试！');
+                    });
+            },
+            formatDateTime(dateTime) {
+                const dt = new Date(dateTime);
+                return `${dt.getFullYear()}-${this.padNumber(dt.getMonth() + 1)}-${this.padNumber(dt.getDate())}
+                        ${this.padNumber(dt.getHours())}:${this.padNumber(dt.getMinutes())}:${this.padNumber(dt.getSeconds())}`;
+            },
+            padNumber(num) {
+                return num.toString().padStart(2, '0');
+            }
+        }
+    });
+</script>
+</body>
+</html>

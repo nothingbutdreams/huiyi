@@ -3,41 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>会议预约</title>
+    <title>预约信息</title>
     <link rel="stylesheet" href="../css/meetingReservation.css">
 </head>
 <body>
 <div class="container">
     <div class="form-container">
-        <h2>会议预约</h2>
+        <h2>预约信息</h2>
         <form id="meetingForm" th:object="${meetingReservation}">
+            <div class="form-group">
+                <input type="text" id="id" th:value="*{id}" readonly hidden="hidden"/>
+            </div>
             <div class="form-group">
                 <label for="title">会议标题</label>
                 <input type="text" id="title" th:value="*{meetingName}" readonly/>
-                <input type="text" hidden="hidden" id="meetingId" th:value="*{meetingId}" readonly/>
+            </div>
+            <div class="form-group">
+                <label for="notes">会议备注</label>
+                <textarea id="notes" th:text="*{remark}" readonly></textarea>
             </div>
             <div class="form-group">
                 <label>开始时间</label>
-                <input type="text" th:value="${meetingReservation.startTime}" readonly/>
+                <input type="text" th:value="${#dates.format(meetingReservation.startTime, 'yyyy-MM-dd HH:mm:ss')}" readonly/>
             </div>
             <div class="form-group">
                 <label>结束时间</label>
-                <input type="text" th:value="${meetingReservation.endTime}" readonly/>
+                <input type="text" th:value="${#dates.format(meetingReservation.endTime, 'yyyy-MM-dd HH:mm:ss')}" readonly/>
             </div>
             <div class="form-group">
                 <label for="name">预约人</label>
-                <input type="text" id="name" th:field="*{persName}" required/>
+                <input type="text" id="name" th:field="*{persName}" readonly/>
             </div>
             <div class="form-group">
                 <label for="phone">预约人手机号</label>
-                <input type="tel" id="phone" th:field="*{mobile}" required/>
+                <input type="tel" id="phone" th:field="*{mobile}" readonly/>
             </div>
             <div class="form-group">
-                <label for="notes">预约会议备注</label>
-                <textarea id="notes" th:text="*{remark}" ></textarea>
-            </div>
-            <div class="form-group">
-                <button type="button" onclick="submitData()">提交</button>
+                <button type="button" onclick="submitData()">签到</button>
             </div>
         </form>
     </div>
@@ -46,25 +48,14 @@
 <script src="../js/jquery-3.6.0.min.js"></script>
 <script>
     function submitData() {
-        var name = $('#name').val().trim();
-        var phone = $('#phone').val().trim();
-
-        if (name === '') {
-            alert('请输入预约人姓名');
-            return;
-        }
-
-        if (phone === '') {
-            alert('请输入预约人手机号');
-            return;
-        }
 
         var formData = {
-            meetingId: $('#meetingId').val(),
+            meetingName: $('#title').val(),
             remark: $('#notes').val(),
+            startTime: $('input[type="text"][name="startTime"]').val(),
+            endTime: $('input[type="text"][name="endTime"]').val(),
             persName: $('#name').val(),
-            mobile: $('#phone').val(),
-            state: '0'
+            mobile: $('#phone').val()
         };
 
         $.ajax({

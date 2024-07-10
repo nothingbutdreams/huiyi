@@ -7,4 +7,6 @@ public interface MeetingReservationService {
 
     Result getMeetingReservationList(String name, Pageable pageable);
 
+    Result getMeetingReservationById(String id);
+
 }
