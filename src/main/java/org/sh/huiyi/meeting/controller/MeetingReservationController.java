@@ -1,11 +1,11 @@
-package org.sh.huiyi.controller;
+package org.sh.huiyi.meeting.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.sh.huiyi.boot.utils.Result;
-import org.sh.huiyi.dao.MeetingReservationDao;
-import org.sh.huiyi.model.MeetingReservation;
-import org.sh.huiyi.service.MeetingReservationService;
+import org.sh.huiyi.meeting.dao.MeetingReservationDao;
+import org.sh.huiyi.meeting.model.MeetingReservation;
+import org.sh.huiyi.meeting.service.MeetingReservationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

@@ -1,6 +1,6 @@
-package org.sh.huiyi.dao;
+package org.sh.huiyi.meeting.dao;
 
-import org.sh.huiyi.model.Meeting;
+import org.sh.huiyi.meeting.model.Meeting;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

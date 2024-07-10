@@ -1,13 +1,13 @@
-package org.sh.huiyi.service.impl;
+package org.sh.huiyi.meeting.service.impl;
 
 import jakarta.persistence.criteria.*;
 import org.apache.commons.lang3.StringUtils;
 import org.sh.huiyi.boot.utils.DateUtil;
 import org.sh.huiyi.boot.utils.Result;
-import org.sh.huiyi.dao.MeetingReservationDao;
-import org.sh.huiyi.model.MeetingReservation;
-import org.sh.huiyi.service.MeetingReservationService;
-import org.sh.huiyi.vo.MeetingReservationVo;
+import org.sh.huiyi.meeting.dao.MeetingReservationDao;
+import org.sh.huiyi.meeting.model.MeetingReservation;
+import org.sh.huiyi.meeting.service.MeetingReservationService;
+import org.sh.huiyi.meeting.vo.MeetingReservationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

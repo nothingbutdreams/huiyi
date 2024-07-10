@@ -1,11 +1,11 @@
-package org.sh.huiyi.service.impl;
+package org.sh.huiyi.meeting.service.impl;
 
 import jakarta.persistence.criteria.*;
 import org.apache.commons.lang3.StringUtils;
 import org.sh.huiyi.boot.utils.Result;
-import org.sh.huiyi.dao.MeetingDao;
-import org.sh.huiyi.model.Meeting;
-import org.sh.huiyi.service.MeetingService;
+import org.sh.huiyi.meeting.dao.MeetingDao;
+import org.sh.huiyi.meeting.model.Meeting;
+import org.sh.huiyi.meeting.service.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

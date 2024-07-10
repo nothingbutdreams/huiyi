@@ -1,4 +1,4 @@
-package org.sh.huiyi.model;
+package org.sh.huiyi.meeting.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "MEETING_RESERVATION")
+@Table(name = "MEETING")
 @Data
 @Accessors(chain=true)
-public class MeetingReservation implements Serializable {
+public class Meeting implements Serializable {
 
     @Id
     @GeneratedValue(generator = "SYSTEM-UUID")
@@ -24,20 +24,15 @@ public class MeetingReservation implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date createTime = new Date();
 
-    @ManyToOne
-    @JoinColumn(name = "MEETING_ID")
-    private Meeting meeting;
+    @Column(name = "MEETING_NAME", length = 50, nullable = false)
+    private String meetingName;
 
-    @Column(name = "PERS_NAME", length = 50)
-    private String persName;
+    @Column(name = "STARTTIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startTime;
 
-    @Column(name = "MOBILE", length = 50)
-    private String mobile;
-
-    @Column(name = "REMARK", length = 50)
-    private String remark;
-
-    @Column(name = "STATE", length = 50)
-    private String state;
+    @Column(name = "ENDTIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endTime;
 
 }

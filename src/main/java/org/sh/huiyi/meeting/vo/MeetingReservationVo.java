@@ -1,4 +1,4 @@
-package org.sh.huiyi.vo;
+package org.sh.huiyi.meeting.vo;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

@@ -1,10 +1,10 @@
-package org.sh.huiyi.controller;
+package org.sh.huiyi.meeting.controller;
 
 import com.alibaba.fastjson2.JSON;
 import jakarta.servlet.http.HttpServletRequest;
 import org.sh.huiyi.boot.utils.Result;
-import org.sh.huiyi.service.MeetingReservationService;
-import org.sh.huiyi.vo.MeetingReservationVo;
+import org.sh.huiyi.meeting.service.MeetingReservationService;
+import org.sh.huiyi.meeting.vo.MeetingReservationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
